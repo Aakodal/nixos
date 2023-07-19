@@ -1,0 +1,75 @@
+(defwindow notifications
+  :geometry (geometry
+    :x "0px"
+    :y "0px"
+    :width "0px"
+    :height "0px"
+    :anchor "right top")
+  :stacking "fg"
+  :monitor 0
+(notifications))
+
+(defwidget notifications [] 
+  (box
+    :class "notifications-box" 
+    :orientation "v" 
+    :space-evenly false
+    (box
+      :class "notification-header"
+      (label
+        :class "notification-label"
+        :halign "start"
+        :text "Notifications")
+      (box
+        :class "icon"
+        :halign "end"
+        :space-evenly false 
+        :spacing 10
+        (button
+          :class "notification-action"
+          :tooltip "Rafraîchir"
+          :onclick "scripts/notifications notifs" "")
+        (button
+          :class "notification-action"
+          :tooltip {notifications.toggle_text}
+          :onclick "scripts/notifications toggle"
+          {notifications.toggle_icon})
+        (button
+          :class "notification-action"
+          :tooltip "Supprimer Notifications"
+          :onclick "scripts/notifications clear" ""))) ; 󰅖
+    (scroll
+      :vscroll true
+      :hscroll false
+      :height 500
+      :width 300
+      (box
+        :class "container"
+        :orientation "v"
+        :space-evenly false
+        (for i in notifications
+          (eventbox
+            :onclick "dunstctl history-pop ${i.id} && dunstctl action 0 && scripts/notifications notifs"
+            (box
+              :class "notification"
+              :orientation "v"
+              :width 300
+              :space-evenly false
+              (centerbox
+                :space-evenly false
+                (label
+                  :xalign 0
+                  :wrap true
+                  :class "summary"
+                  :text {i.summary})
+                (label)
+                (label
+                  :xalign 1
+                  :wrap true
+                  :class "appname"
+                  :text {i.appname}))
+              (label
+                :xalign 0
+                :wrap true
+                :class "body"
+                :text {i.body}))))))))

@@ -1,0 +1,7 @@
+(defwidget net []
+  (button
+    :class "module icon"
+    :onclick "nm-connection-editor &"
+    :tooltip {net.essid}
+    :style "color: ${net.color};"
+    {net.icon}))

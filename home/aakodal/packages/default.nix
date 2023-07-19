@@ -1,0 +1,9 @@
+{
+  inputs,
+  unstable,
+  ...
+}: {
+  imports = [
+    ./cli
+  ];
+}

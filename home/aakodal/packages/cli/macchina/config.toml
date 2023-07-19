@@ -1,0 +1,7 @@
+theme = "Silicon"
+
+long_uptime = false
+long_shell = false
+physical_cores = false
+
+show = ["Host", "Distribution", "OperatingSystem", "DesktopEnvironment", "WindowManager", "Terminal", "Shell", "Uptime", "Processor", "ProcessorLoad", "Memory"]

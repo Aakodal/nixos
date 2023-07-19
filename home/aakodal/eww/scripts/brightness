@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+icons=("" "" "")
+
+# initial
+level=$(brightnessctl -m | cut -d',' -f4 | awk '{print substr($0,1,length($0)-1)}')
+icon=${icons[$(awk -v n="$level" 'BEGIN{print int(n/34)}')]}
+echo '{ "level": "'"$level"'", "icon": "'"$icon"'" }'
+
+udevadm monitor | rg --line-buffered "backlight" | while read -r _; do
+  level=$(brightnessctl -m | cut -d',' -f4 | awk '{print substr($0,1,length($0)-1)}')
+  icon=${icons[$(awk -v n="$level" 'BEGIN{print int(n/34)}')]}
+
+  echo '{ "level": "'"$level"'", "icon": "'"$icon"'" }'
+done

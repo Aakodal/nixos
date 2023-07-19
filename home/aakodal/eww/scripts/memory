@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+while true; do    
+  # human-readable
+  freeH=$(LC_ALL=C free -h --si | rg "Mem:")
+  # non-human-readable
+  freeN=$(LC_ALL=C free --mega | rg "Mem:")
+
+  total="$(echo "$freeH" | awk '{ print $2 }')"
+  used="$(echo "$freeH" | awk '{ print $3 }')"
+  t="$(echo "$freeN" | awk '{ print $2 }')"
+  u="$(echo "$freeN" | awk '{ print $3 }')"
+
+  #LC_ALL=C ensures that dots in numbers are accepted
+  free=$(LC_ALL=C printf '%.1fG' "$(bc -l <<< "($t - $u) / 1000")")
+  perc=$(LC_ALL=C free -m | rg Mem | awk '{print ($3/$2)*100}')
+  percentageCerc=$(LC_ALL=C printf '%.0f' "$perc")
+  percentage=$(LC_ALL=C printf '%.2f' "$perc")
+
+  echo '{ "total": "'"$total"'", "used": "'"$used"'", "free": "'"$free"'", "percentage": "'"$percentage"'", "percentageCerc": "'"$percentageCerc"'" }'
+
+  sleep 3
+done
