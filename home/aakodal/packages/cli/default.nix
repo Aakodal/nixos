@@ -7,6 +7,7 @@
     ./bat.nix
     ./desktop.nix
     ./macchina
+    ./other.nix
     ./wayland.nix
   ];
 }
