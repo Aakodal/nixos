@@ -2,7 +2,6 @@
   pkgs,
   config,
   lib,
-  unstable,
   ...
 }: {
   home.packages = with pkgs; [
@@ -14,6 +13,6 @@
     vlc
 
     gimp
-    unstable.flameshot
+    flameshot
   ];
 }

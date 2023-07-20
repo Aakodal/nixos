@@ -2,14 +2,13 @@
   config,
   inputs,
   self,
-  unstable,
   ...
 }: {
   home-manager = {
     useUserPackages = true;
     useGlobalPkgs = true;
     extraSpecialArgs = {
-      inherit inputs self unstable;
+      inherit inputs self;
     };
     users.aakodal = ./aakodal;
   };

@@ -1,10 +1,9 @@
 {
   pkgs,
-  unstable,
   ...
 }: {
   home.packages = with pkgs; [
-    unstable.macchina
+    macchina
   ];
 
   xdg.configFile."macchina/macchina.toml".source = ./config.toml;

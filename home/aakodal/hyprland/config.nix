@@ -5,13 +5,12 @@
   ...
 }: {
   wayland.windowManager.hyprland.extraConfig = ''
-    monitor=eDP-1,1366x768,0x0,1
-    monitor=X11-1,1366x768,0x0,1
+    monitor=eDP-1,preferred,0x0,1
+    #monitor=X11-1,1366x768,0x0,1
 
     #exec-once=~/.config/hypr/autostart
     exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
     exec-once = wbg /home/aakodal/Documents/wallpaper.jpg
-    exec-once = eww open bar
     exec=xmodmap -e "keysym End = Multi_key"
 
     # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
@@ -146,9 +145,9 @@
       builtins.concatStringsSep "\n" (builtins.genList (
         x: let
           ws = let
-            c = (x + 1) / 10;
+            c = (x + 1) / 11;
           in
-            builtins.toString (x + 1 - (c * 10));
+            builtins.toString (x + 10 - (c * 10));
         in ''
           bind = $mainMod, ${ws}, workspace, ${toString (x + 1)}
           bind = $mainMod SHIFT, ${ws}, movetoworkspacesilent, ${toString (x + 1)}
@@ -156,17 +155,6 @@
       )
       10)
     }
-
-    bind = $mainMod, 38, workspace, 1
-    bind = $mainMod, 233, workspace, 2
-    bind = $mainMod, 34, workspace, 3
-    bind = $mainMod, 39, workspace, 4
-    bind = $mainMod, 40, workspace, 5
-    bind = $mainMod, 45, workspace, 6
-    bind = $mainMod, 232, workspace, 7
-    bind = $mainMod, 95, workspace, 8
-    bind = $mainMod, 231, workspace, 9
-    bind = $mainMod, 224, workspace, 10
 
     # Manually bind with numlock as there is no logic here
     bind = $mainMod NUM_LOCK, 87, workspace, 1

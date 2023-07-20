@@ -1,8 +1,4 @@
-{
-  inputs,
-  unstable,
-  ...
-}: {
+_: {
   imports = [
     ./cli
   ];

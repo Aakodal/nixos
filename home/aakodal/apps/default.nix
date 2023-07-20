@@ -1,10 +1,4 @@
-{
-  pkgs,
-  config,
-  lib,
-  unstable,
-  ...
-}: {
+_: {
   imports = [
     ./browsers.nix
     ./codium.nix

@@ -1,12 +1,9 @@
 {
   self,
-  unstable-pkgs,
   ...
 } @ inputs: let 
   inputs = self.inputs;
   mkSystem = inputs.nixpkgs.lib.nixosSystem;
-
-  unstable = import unstable-pkgs { system = "x86_64-linux"; config.allowUnfree = true; };
 
   boot = ../modules/boot;
   core = ../modules/core;
@@ -27,6 +24,6 @@ in {
       ./redGiant
       { networking.hostName = "red-giant"; }
     ] ++ shared;
-    specialArgs = { inherit inputs self unstable; };
+    specialArgs = { inherit inputs self; };
   };
 }

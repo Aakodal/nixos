@@ -1,12 +1,9 @@
-{
-  inputs,
-  unstable,
-  ...
-}: {
+_: {
   imports = [
     ./bat.nix
     ./desktop.nix
     ./macchina
+    ./neovim.nix
     ./other.nix
     ./wayland.nix
   ];

@@ -1,6 +1,4 @@
 {
-  inputs,
-  unstable,
   pkgs,
   ...
 }: {

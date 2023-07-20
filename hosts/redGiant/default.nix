@@ -11,6 +11,7 @@
   config = {
     hardware.opengl = {
       enable = true;
+      package = pkgs.mesa.drivers;
       extraPackages = with pkgs; [
         vaapiIntel
       ];
