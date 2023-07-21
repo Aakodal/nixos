@@ -1,10 +1,6 @@
-{
-  pkgs,
-  ...
-}: {
-  home.packages = with pkgs; [
-    bat
-  ];
-
-  programs.bat.config.theme = "GitHub";
+_: {
+  programs.bat = {
+    enable = true;
+    config.theme = "GitHub";
+  };
 }

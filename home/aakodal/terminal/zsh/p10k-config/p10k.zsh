@@ -185,7 +185,7 @@
   # typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION=$'\uF303'
 
   # Clover
-  typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION=$'\uFD14'
+  typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION=$'\uF313'
 
   ################################[ prompt_char: prompt symbol ]################################
   # Transparent background.

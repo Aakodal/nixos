@@ -3,9 +3,9 @@
   ...
 }: {
   imports = [
+    ./clight.nix
     ./login.nix
     ./printing.nix
-    ./redshift.nix
     ./xserver.nix
   ];
 }

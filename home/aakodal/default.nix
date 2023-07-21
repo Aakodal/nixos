@@ -1,16 +1,8 @@
-{
-  inputs,
-  pkgs,
-  config,
-  lib,
-  ...
-}: {
+_: {
   imports = [
-    inputs.hyprland.homeManagerModules.default
-
     ./apps
     ./eww
-    ./hyprland
+    ./hyprland.nix
     ./packages
     ./terminal
   ];

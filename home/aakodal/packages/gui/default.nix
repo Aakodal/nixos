@@ -1,6 +1,5 @@
 _: {
   imports = [
-    ./cli
-    ./gui
+    ./rofi.nix
   ];
 }
