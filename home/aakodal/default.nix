@@ -1,10 +1,10 @@
 _: {
   imports = [
-    ./apps
-    ./eww
-    ./hyprland.nix
+    ./desktop
+    ./graphical
     ./packages
     ./terminal
+    ./themes
   ];
 
   config = {

@@ -1,10 +1,8 @@
-{
-  pkgs,
-  ...
-}: {
+_: {
   imports = [
+    ./boot
+    ./hardware
     ./network
-    ./system
     ./user.nix
   ];
 }

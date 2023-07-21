@@ -1,10 +1,9 @@
 _: {
   imports = [
-    ./bat.nix
-    ./desktop.nix
     ./macchina
+    ./bat.nix
     ./neovim.nix
-    ./other.nix
+    ./util.nix
     ./wayland.nix
   ];
 }

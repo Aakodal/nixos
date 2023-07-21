@@ -1,7 +1,5 @@
 {
   pkgs,
-  config,
-  lib,
   ...
 }: {
   users.users.aakodal = {

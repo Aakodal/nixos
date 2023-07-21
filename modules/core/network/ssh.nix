@@ -1,17 +1,11 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
-  config = {
-    programs.ssh.startAgent = true;
+_: {
+  programs.ssh.startAgent = true;
 
-    services.openssh = {
-      enable = true;
-      startWhenNeeded = true;
+  services.openssh = {
+    enable = true;
+    startWhenNeeded = true;
 
-      openFirewall = true;
-      ports = [30];
-    };
+    openFirewall = true;
+    ports = [30];
   };
 }
