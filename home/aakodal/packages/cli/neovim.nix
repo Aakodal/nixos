@@ -9,7 +9,16 @@
     defaultEditor = true;
 
     plugins = with pkgs.vimPlugins; [
-      nvchad
+      nvim-tree-lua
+      nvchad-ui
+      nvim-cmp
+      nvim-lspconfig
+      nvim-colorizer-lua
+      nvim-treesitter.withAllGrammars
+      nvim-treesitter-context
+      comment-nvim
+      nvim-autopairs
+      indent-blankline-nvim
     ];
   };
 }

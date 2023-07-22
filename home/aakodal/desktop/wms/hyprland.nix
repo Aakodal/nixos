@@ -21,58 +21,57 @@
       ];
 
       input = {
-        follow_mouse = "yes";
+        follow_mouse = true;
         kb_layout = "fr";
         kb_variant = "oss";
         kb_options = "compose:end";
-        numlock_by_default = if osConfig.networking.hostName == "helheim" then "no" else "yes";
-        touchpad.natural_scroll = "no";
+        numlock_by_default = if osConfig.networking.hostName == "helheim" then false else true;
+        touchpad.natural_scroll = false;
 
-        sensitivity = "0";
+        sensitivity = 0;
       };
 
       general = {
         border_size = 2;
         "col.active_border" = "rgba(bf616aee) rgba(b48eadee) 45deg";
         "col.inactive_border" = "rgba(595959aa)";
-        gaps_in = "5";
-        gaps_out = "5";
+        gaps_in = 5;
+        gaps_out = 5;
         layout = "dwindle";
       };
 
       decoration = {
-        blur = "yes";
-        blur_size = "3";
-        blur_passes = "1";
-        blur_new_optimizations = "yes";
+        blur = true;
+        blur_size = 3;
+        blur_passes = 1;
+        blur_new_optimizations = true;
         "col.shadow" = "rgba(1a1a1aee)";
-        drop_shadow = "yes";
-        rounding = "10";
-        shadow_range = "4";
-        shadow_render_power = "3";
+        drop_shadow = true;
+        rounding = 10;
+        shadow_range = 4;
+        shadow_render_power = 3;
       };
 
-      # Uncomment and remove from extraConfig when it will work (currently doesn't as it generates in alphabetical order, thus using bezier before defining it
-      #animations = {
-      #  enabled = "yes";
+      animations = {
+        enabled = true;
 
-      #  bezier = "overshot, 0.13, 0.99, 0.29, 1.1";
-      #  animation = [
-      #    "border, 1, 10, default"
-      #    "fade, 1, 10, default"
-      #    "windows, 1, 4, overshot, slide"
-      #    "workspaces, 1, 6, overshot, slide"
-      #  ];
-      #};
+        bezier = "overshot, 0.13, 0.99, 0.29, 1.1";
+        animation = [
+          "border, 1, 10, default"
+          "fade, 1, 10, default"
+          "windows, 1, 4, overshot, slide"
+          "workspaces, 1, 6, overshot, slide"
+        ];
+      };
 
       dwindle = {
-        preserve_split = "yes";
-        pseudotile = "yes";
+        preserve_split = true;
+        pseudotile = true;
       };
 
-      master.new_is_master = "yes";
-      misc.disable_hyprland_logo = "yes";
-      gestures.workspace_swipe = "no";
+      master.new_is_master = true;
+      misc.disable_hyprland_logo = true;
+      gestures.workspace_swipe = false;
 
       bind = [
         # System
@@ -134,35 +133,24 @@
         "$mod NUM_LOCK SHIFT, 80, movetoworkspacesilent, 8"
         "$mod NUM_LOCK SHIFT, 81, movetoworkspacesilent, 9"
         "$mod NUM_LOCK SHIFT, 90, movetoworkspacesilent, 10"
-      ];
+      ] ++ (
+        builtins.concatLists (builtins.genList (
+          x: let 
+            ws = let
+             c = (x + 1) / 11;
+            in 
+              builtins.toString (x + 10 - (c * 10));
+          in [
+            "$mod, ${ws}, workspace, ${toString (x + 1)}"
+            "$mod SHIFT, ${ws}, movetoworkspacesilent, ${toString (x + 1)}"
+          ]
+	) 10)
+      );
 
       bindm = [
         "$mod, mouse:272, movewindow"
         "$mod, mouse:273, resizewindow"
       ];
     };
-
-    extraConfig = ''
-      animations {
-        enabled=yes
-	bezier=overshot, 0.13, 0.99, 0.29, 1.1
-	animation=border, 1, 10, default
-	animation=fade, 1, 10, default
-	animation=windows, 1, 4, overshot, slide
-	animation=workspaces, 1, 6, overshot, slide
-      }
-
-      ${builtins.concatStringsSep "\n" (builtins.genList (
-        x: let 
-          ws = let
-            c = (x + 1) / 11;
-          in 
-            builtins.toString (x + 10 - (c * 10));
-        in ''
-          bind = $mod, ${ws}, workspace, ${toString (x + 1)}
-          bind = $mod SHIFT, ${ws}, movetoworkspacesilent, ${toString (x + 1)}
-        ''
-      ) 10)}
-    '';
   };
 }

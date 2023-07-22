@@ -4,7 +4,14 @@
   pkgs,
   ...
 }: {
-  environment.systemPackages = with pkgs; [ virt-manager ];
+  environment.systemPackages = with pkgs; [
+    virt-manager
+    kvmtool
+    polkit_gnome
+    libsForQt5.polkit-kde-agent
+  ];
+
+  security.polkit.enable = true;
 
   virtualisation =  {
     kvmgt.enable = true;

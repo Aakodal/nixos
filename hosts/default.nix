@@ -3,6 +3,7 @@
   ...
 } @ inputs: let 
   inputs = self.inputs;
+  outputs = self.outputs;
   mkSystem = inputs.nixpkgs.lib.nixosSystem;
 
   core = ../modules/core;
@@ -23,6 +24,6 @@ in {
       ./helheim
       { networking.hostName = "helheim"; }
     ] ++ shared;
-    specialArgs = { inherit inputs self; };
+    specialArgs = { inherit inputs outputs self; };
   };
 }

@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  outputs,
   ...
 }: {
   imports = [
@@ -24,7 +25,10 @@
       };
     };
 
-    nixpkgs.config.allowUnfree = true;
+    nixpkgs = {
+      overlays = builtins.attrValues outputs.overlays;
+      config.allowUnfree = true;
+    };
 
     environment.systemPackages = with pkgs; [
       wget curl git

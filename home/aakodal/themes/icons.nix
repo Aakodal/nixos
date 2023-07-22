@@ -4,7 +4,7 @@
 }: let
   fluent-icons = pkgs.fluent-icon-theme.override {
     roundedIcons = true;
-    colorVariants = [ "teal" ];
+    colorVariants = [ "standard" ];
   };
 in {
   home.packages = [
@@ -12,7 +12,7 @@ in {
   ];
 
   gtk.iconTheme = {
-    name = "Fluent light";
+    name = "Fluent";
     package = fluent-icons;
   };
 }

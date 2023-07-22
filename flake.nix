@@ -31,8 +31,11 @@
     self,
     nixpkgs,
     ...
-  } @ inputs: {
-    nixosConfigurations = import ./hosts { inherit self nixpkgs inputs; };
+  } @ inputs: let
+    inherit (self) outputs;
+  in {
+    overlays = import ./overlays { inherit inputs outputs; };
+    nixosConfigurations = import ./hosts { inherit self nixpkgs inputs outputs; };
   };
 
   nixConfig = {
