@@ -23,19 +23,26 @@
     };
 
     fonts = with pkgs; [
+      calibri
       corefonts
-      material-icons
-      material-design-icons
-      roboto
-      lato
       dejavu_fonts
-      powerline-fonts
+      jetbrains-mono
+      lato
+      material-icons
+      material-symbols
+      material-design-icons
       noto-fonts
       noto-fonts-cjk
       noto-fonts-emoji
-      jetbrains-mono
+      powerline-fonts
+      product-sans
+      roboto
 
-      (nerdfonts.override {fonts = ["JetBrainsMono"];})
+      (nerdfonts.override {
+        fonts = [
+	  "JetBrainsMono"
+	];
+      })
     ];
   };
 }

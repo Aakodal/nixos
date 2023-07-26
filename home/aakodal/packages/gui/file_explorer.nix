@@ -3,7 +3,7 @@
   ...
 }: {
   home.packages = with pkgs; [
-    libsForQt5.dolphin
+    cinnamon.nemo
     ark
   ];
 }

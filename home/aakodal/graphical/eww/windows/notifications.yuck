@@ -1,6 +1,6 @@
 (defwindow notifications
   :geometry (geometry
-    :x "0px"
+    :x "18%"
     :y "0px"
     :width "0px"
     :height "0px"
@@ -36,7 +36,7 @@
           {notifications.toggle_icon})
         (button
           :class "notification-action"
-          :tooltip "Supprimer Notifications"
+          :tooltip "Supprimer les notifications"
           :onclick "scripts/notifications clear" ""))) ; 󰅖
     (scroll
       :vscroll true
@@ -56,7 +56,6 @@
               :width 300
               :space-evenly false
               (centerbox
-                :space-evenly false
                 (label
                   :xalign 0
                   :wrap true

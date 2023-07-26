@@ -5,7 +5,7 @@
   programs.alacritty = {
     enable = true;
     settings = {
-      cursor.style.shape = "beam";
+      cursor.style.shape = "Beam";
       window = {
         dimensions = {
           columns = 95;

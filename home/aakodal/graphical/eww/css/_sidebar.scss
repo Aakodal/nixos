@@ -5,6 +5,10 @@
   color: $text;
 }
 
+.empty-box {
+  min-width: 5rem;
+}
+
 .separator {
   font-size: 1rem;
 }
@@ -12,7 +16,7 @@
 .top-row {
   margin: 1rem 1.5rem 0;
 
-  .time { font-size: 2rem; }
+  .time { font-size: 2rem; min-width: 8rem; }
 
   .date-box {
     margin: 0 1rem;
@@ -38,6 +42,10 @@
     font-size: 1rem;
     margin: 0 .1rem;
   }
+}
+
+.wifi-button, .bluetooth-button {
+  min-width: 1rem;
 }
 
 .element {
@@ -70,9 +78,12 @@
     min-width: 21.5rem;
   }
 
-  box { margin: .2rem 0; }
+  box {
+    margin: .2rem 0;
+  }
 
-  label { font-size: 1.2rem; }
+  label { font-size: 1.2rem;
+    min-width: 15px; }
 }
 
 .volume-bar highlight {

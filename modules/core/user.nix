@@ -8,6 +8,6 @@
     createHome = true;
     shell = pkgs.zsh;
     initialPassword = "azerty";
-    extraGroups = [ "wheel" "audio" "video" "input" "nix" "networkmanager""libvirtd" "sys" ];
+    extraGroups = [ "wheel" "audio" "video" "input" "nix" "networkmanager""libvirtd" "libvirt" "sys" "kvm" ];
   };
 }

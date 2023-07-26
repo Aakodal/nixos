@@ -1,18 +1,17 @@
 {
-  config,
   pkgs,
   inputs,
   lib,
   ...
 }: let
+  eww = inputs.eww.packages.${pkgs.system}.eww-wayland;
+
   dependencies = with pkgs; [
-    config.wayland.windowManager.hyprland.package
-    config.programs.eww.package
+    eww
     bash
     bc
     blueberry
     bluez
-    brightnessctl
     coreutils
     dbus
     dunst
@@ -20,14 +19,13 @@
     gawk
     gnused
     gojq
-    iwgtk
     jaq
+    libnotify
+    light
     networkmanager
     networkmanagerapplet
-    pavucontrol
-    playerctl
-    procps
     pamixer
+    pulseaudio
     ripgrep
     socat
     udev
@@ -35,13 +33,13 @@
     util-linux
     wget
     wireplumber
-    wlogout
-    rofi-wayland
   ];
 in {
+  home.packages = dependencies;
+
   programs.eww = {
     enable = true;
-    package = inputs.eww.packages.${pkgs.system}.eww-wayland;
+    package = eww;
     # remove nix files
     configDir = lib.cleanSourceWith {
       filter = name: _type: let
@@ -55,13 +53,14 @@ in {
   systemd.user.services.eww = {
     Unit = {
       Description = "Eww Daemon";
-      # not yet implemented
-      # PartOf = ["tray.target"];
-      PartOf = ["graphical-session.target"];
+      PartOf = [
+	#"tray.target"
+        "graphical-session.target"
+      ];
     };
     Service = {
       Environment = "PATH=/run/wrappers/bin:${lib.makeBinPath dependencies}";
-      ExecStart = "${config.programs.eww.package}/bin/eww daemon --no-daemonize";
+      ExecStart = "${eww}/bin/eww daemon --no-daemonize";
       Restart = "on-failure";
     };
     Install.WantedBy = ["graphical-session.target"];

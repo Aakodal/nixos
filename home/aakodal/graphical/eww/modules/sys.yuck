@@ -1,6 +1,6 @@
 (defwidget sys []
   (box
-    :class "module"
+    :class "module sys"
     :space-evenly false
     :spacing 5
     (circular-progress
@@ -9,7 +9,7 @@
       :thickness 3
       (button
         :tooltip "CPU: ${round(EWW_CPU.avg,0)}%"
-        :onclick "${EWW_CMD} open --toggle system-menu"
+        :onclick "${EWW_CMD} open --toggle system-menu && ${EWW_CMD} close notifications"
         (label :class "icon-text" :text "")))
 
     (circular-progress
@@ -18,15 +18,17 @@
       :thickness 3
       (button
         :tooltip "RAM: ${round(memory.percentage,0)}%"
-        :onclick "${EWW_CMD} open --toggle system-menu"
+        :onclick "${EWW_CMD} open --toggle system-menu && ${EWW_CMD} close notifications"
         (label :class "icon-text" :text "")))
 
     (circular-progress
-      :value "${EWW_BATTERY["BAT0"].capacity}"
+      ; remove this line if you want to keep battery circle even on non-laptop
+      :visible battery_active
+      :value {battery_active ? EWW_BATTERY["BAT0"].capacity : 100}
       :class "batbar"
       :style "color: ${battery.color};"
       :thickness 3
       (button
-        :tooltip "Batterie: ${EWW_BATTERY["BAT0"].capacity}%"
-        :onclick "${EWW_CMD} open --toggle system-menu"
+        :tooltip {battery_active ? "Batterie: ${EWW_BATTERY["BAT0"].capacity}%" : ""}
+        :onclick "${EWW_CMD} open --toggle system-menu && ${EWW_CMD} close notifications"
         (label :class "icon-text" :text "")))))

@@ -24,7 +24,7 @@ status() {
 	elif [ "$STATE" = "Discharging" ]; then
 		echo "$(gettime) restantes"
 	else
-		echo "chargé complètement"
+		echo "chargé"
 	fi
 }
 
@@ -54,11 +54,23 @@ gettime() {
 	fi
 }
 
-while true; do
-	RATE=$(cat /sys/class/power_supply/BAT0/current_now)
-	CAPACITY=$(cat /sys/class/power_supply/BAT0/capacity)
-	STATE=$(cat /sys/class/power_supply/BAT0/status)
+isLaptop() {
+	[ -d "/sys/class/power_supply/BAT0/" ] && echo true || echo false
+}
 
-	echo '{ "icon": "'"$(geticon)"'", "percentage": '"$CAPACITY"', "wattage": "'"$(wattage)"'", "status": "'"$(status)"'", "color": "'"$(color)"'" }'
-	sleep 3
-done
+if [ "$1" == "isLaptop" ]; then
+	echo $(isLaptop)
+else
+	while true; do
+		if [ $(isLaptop) == true ]; then
+			RATE=$(cat /sys/class/power_supply/BAT0/charge_now)
+			CAPACITY=$(cat /sys/class/power_supply/BAT0/capacity)
+			STATE=$(cat /sys/class/power_supply/BAT0/status)
+
+			echo '{ "icon": "'"$(geticon)"'", "percentage": '"$CAPACITY"', "wattage": "'"$(wattage)"'", "status": "'"$(status)"'", "color": "'"$(color)"'" }'
+		else
+			echo '{ "icon": "", "percentage": "100", "wattage": "", "status": "", "color": "#a6e3a1" }'
+		fi
+		sleep 3
+	done
+fi

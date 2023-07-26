@@ -1,7 +1,6 @@
 (include "./modules/bluetooth.yuck")
 (include "./modules/bright.yuck")
 (include "./modules/clock.yuck")
-(include "./modules/music.yuck")
 (include "./modules/net.yuck")
 (include "./modules/sys.yuck")
 (include "./modules/variables.yuck")
@@ -9,46 +8,45 @@
 (include "./modules/workspaces.yuck")
 
 (include "./windows/calendar.yuck")
-(include "./windows/music.yuck")
 (include "./windows/notifications.yuck")
-(include "./windows/osd.yuck")
 (include "./windows/system-menu.yuck")
 
 (defwidget notif-toggle []
   (button
     :class "notif-toggle module"
-    :onclick "${EWW_CMD} open --toggle notifications";
+    :onclick "${EWW_CMD} open --toggle notifications && ${EWW_CMD} close system-menu";
     {notif_icons.icon}))
 
 ; clipboard 󰅌 󰅍 󰄷
 
 (defwidget left []
   (box
+    :class "bar-part"
     :space-evenly false
     :halign "start"
     (workspaces)))
 
-(defwidget right []
-  (box
-    :space-evenly false
-    :halign "end"
-    (bright)
-    (volume-module)
-    (bluetooth)
-    (net)
-    (sys)
-    (clock_module)
-    (notif-toggle)))
 
 (defwidget center []
   (box
+    :class "bar-part"
     :space-evenly false
     :halign "center"
-    (music-module)))
+    (clock_module)))
+
+(defwidget right []
+  (box
+    :class "bar-part"
+    :space-evenly false
+    :halign "end"
+;    (systray
+;      :pack-direction "rtl"
+;      :class "module tray")
+    (sys)
+    (notif-toggle)))
 
 (defwidget bar []
   (centerbox
-    :class "bar"
     (left)
     (center)
     (right)))
@@ -57,7 +55,7 @@
     :monitor 0
     :geometry (geometry :x "0%"
       :y "0%"
-      :width "100%"
+      :width "60%"
       :height "32px"
       :anchor "top center")
     :stacking "fg"

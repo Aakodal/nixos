@@ -4,7 +4,9 @@
   osConfig,
   pkgs,
   ...
-}: {
+}: let
+  host = osConfig.networking.hostName;
+in {
   wayland.windowManager.hyprland = {
     enable = true;
     systemdIntegration = true;
@@ -12,32 +14,16 @@
     package = inputs.hyprland.packages.${pkgs.system}.default;
 
     settings = {
-      monitor = "eDP-1,preferred,0x0,1";
-      "$mod" = "SUPER";
+      animations = {
+        enabled = true;
 
-      exec-once = [
-        "wbg /home/aakodal/Documents/wallpaper.jpg"
-        "eww open bar"
-      ];
-
-      input = {
-        follow_mouse = true;
-        kb_layout = "fr";
-        kb_variant = "oss";
-        kb_options = "compose:end";
-        numlock_by_default = if osConfig.networking.hostName == "helheim" then false else true;
-        touchpad.natural_scroll = false;
-
-        sensitivity = 0;
-      };
-
-      general = {
-        border_size = 2;
-        "col.active_border" = "rgba(bf616aee) rgba(b48eadee) 45deg";
-        "col.inactive_border" = "rgba(595959aa)";
-        gaps_in = 5;
-        gaps_out = 5;
-        layout = "dwindle";
+        bezier = "overshot, 0.13, 0.99, 0.29, 1.1";
+        animation = [
+          "border, 1, 10, default"
+          "fade, 1, 10, default"
+          "windows, 1, 4, overshot, slide"
+          "workspaces, 1, 6, overshot, slide"
+        ];
       };
 
       decoration = {
@@ -52,26 +38,59 @@
         shadow_render_power = 3;
       };
 
-      animations = {
-        enabled = true;
-
-        bezier = "overshot, 0.13, 0.99, 0.29, 1.1";
-        animation = [
-          "border, 1, 10, default"
-          "fade, 1, 10, default"
-          "windows, 1, 4, overshot, slide"
-          "workspaces, 1, 6, overshot, slide"
-        ];
-      };
-
       dwindle = {
         preserve_split = true;
         pseudotile = true;
       };
 
-      master.new_is_master = true;
-      misc.disable_hyprland_logo = true;
+      exec-once = [
+        "wbg /home/aakodal/Documents/wallpaper.jpg"
+        "eww open bar"
+      ];
+
+      general = {
+        border_size = 2;
+        "col.active_border" = "rgba(bf616aee) rgba(b48eadee) 45deg";
+        "col.inactive_border" = "rgba(595959aa)";
+        gaps_in = 5;
+        gaps_out = 5;
+        layout = "dwindle";
+      };
+
       gestures.workspace_swipe = false;
+
+      input = {
+        follow_mouse = true;
+        kb_layout = "fr";
+        kb_variant = "oss";
+        kb_options = "compose:end";
+        numlock_by_default = if host == "helheim" then false else true;
+        touchpad.natural_scroll = false;
+
+        sensitivity = 0;
+      };
+
+      master.new_is_master = true;
+
+      misc.disable_hyprland_logo = true;
+
+      monitor = [
+        # Main monitor
+        "eDP-1, 1366x768@60, 0x0, 1" # Helheim
+        "DP-1, 1920x1080@144, 0x0, 1" # Main computer (no name for now)
+
+        # Unknown monitors
+        ", preferred, auto, 1"
+      ];
+      "$mod" = "SUPER";
+
+      windowrulev2 = [
+        "float, class:^(Microsoft)"
+        "fullscreen, class:^(Microsoft), title:^(Diaporama)"
+        "opacity 0.75 0.75, class:nemo"
+      ];
+
+
 
       bind = [
         # System
@@ -86,7 +105,7 @@
         "$mod, L, exec, swaylockd --screenshots --effect-blur 5x5"
 
         # Apps
-        "$mod, N, exec, dolphin"
+        "$mod, N, exec, nemo"
         "$mod, W, exec, firefox"
         ", Print, exec, XDG_CURRENT_DESKTOP=sway flameshot gui"
         "SHIFT, Print, exec, XDG_CURRENT_DESKTOP=sway flameshot gui --raw | wl-copy"
@@ -144,7 +163,7 @@
             "$mod, ${ws}, workspace, ${toString (x + 1)}"
             "$mod SHIFT, ${ws}, movetoworkspacesilent, ${toString (x + 1)}"
           ]
-	) 10)
+        ) 10)
       );
 
       bindm = [

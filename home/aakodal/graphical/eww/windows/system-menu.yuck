@@ -1,23 +1,28 @@
+(defpoll vol :interval "1s" "pamixer --get-volume")
+(defpoll micvol :interval "1s" "pamixer --default-source --get-volume")
+
 (defwidget system-menu []
   (box
     :class "system-menu-box"
     :space-evenly false
     :orientation "v"
-    (box
-      :class "top-row"
-      :space-evenly false
-      (label
-        :class "time"
-        :text "${time.hour}:${time.minute}")
-      (box
-        :class "date-box"
+    (centerbox
+        :class "top-row"
         :space-evenly false
         (label
-          :class "date"
-          :text {time.date})
-        (label
-          :class "day"
-          :text {time.day})))
+          :class "time"
+          :text "${time.hour}:${time.minute}:${time.seconds}")
+        (box
+          :class "empty-box")
+        (box
+          :class "date-box"
+          :space-evenly false
+          (label
+            :class "day"
+            :text {time.day})
+          (label
+            :class "date"
+            :text {time.date})))
 
     (centerbox
       :class "system-row"
@@ -91,25 +96,29 @@
         :space-evenly false
         (button
           :class "volume-icon icon"
-          :onclick "scripts/volume mute SINK"
+          :onclick "pamixer -t"
           {volume.icon})
         (scale
           :class "volume-bar"
-          :value {volume.percent}
+          :value {vol}
           :tooltip "volume on ${volume.percent}%"
-          :onchange "scripts/volume setvol SINK {}"))
+          :onchange "pamixer --set-volume {}"
+          :max 101
+          :min 0))
       (box
         :class "volume-slider-box"
         :space-evenly false
         (button
           :class "volume-icon icon"
-          :onclick "scripts/volume micmute SOURCE"
+          :onclick "pamixer --default-source -t"
           {volume.micicon})
         (scale
           :class "volume-bar"
-          :value {volume.microphone}
-          :tooltip "mic on ${volume.microphone}%"
-          :onchange "scripts/volume setmicvol SOURCE {}"))
+          :value {micvol}
+          :tooltip "mic on ${micvol}%"
+          :onchange "pamixer --default-source --set-volume {}"
+          :max 101
+          :min 0))
       (box
         :class "brightness-slider-box"
         :space-evenly false
@@ -120,7 +129,9 @@
           :class "brightness-slider" 
           :value {brightness.level} 
           :marks true 
-          :onchange "brightnessctl s {}%")))
+          :onchange "light -S {}"
+          :max 101
+          :min 0)))
 
     (box
       :class "system-info-box"
@@ -192,7 +203,7 @@
           :text {battery.icon})
         (label
           :class "battery-percentage"
-          :text {EWW_BATTERY["BAT0"].capacity})
+          :text "${EWW_BATTERY["BAT0"].capacity}%")
         (label
           :class "battery-status"
           :text {battery.status})
@@ -214,9 +225,9 @@
   :stacking "fg" 
   :monitor 0
   :geometry (geometry
-    :x "0"
+    :x "20%"
     :y "0"
     :width "0%"
     :height "0%"
-    :anchor "right top")
+    :anchor "top right")
   (system-menu))

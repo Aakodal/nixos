@@ -1,7 +1,7 @@
 @import 'css/colors';
 
 @mixin rounding {
-  border-radius: 16px;
+  border-radius: 15px;
 }
 
 @mixin window {
@@ -18,20 +18,22 @@
 }
 
 @import 'css/calendar';
-@import 'css/music';
 @import 'css/notification';
 @import 'css/osd';
 @import 'css/sidebar';
 @import 'css/system';
-@import 'css/volume';
+@import 'css/tray';
 
-.bar {
+.bar-part {
   background-color: $bg;
   color: $fg;
 
   label {
     font-size: 1.2rem;
   }
+  padding-left: 15px;
+  padding-right: 15px;
+  @include rounding;
 }
 
 tooltip {
@@ -55,7 +57,7 @@ tooltip {
 
 .date {
   background: $bg;
-  color: $mauve;
+  color: $lavender;
 
   label {
     font-size: 1.2rem;
@@ -72,8 +74,6 @@ scale trough {
   min-height: 10px;
   min-width: 70px;
 }
-
-.workspaces { margin-left: 10px; }
 
 .notif-toggle {
   padding: 0 5px;

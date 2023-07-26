@@ -6,15 +6,14 @@
 (defvar time_rev false)
 (defvar vol_reveal false)
 
-(defpoll time :interval "5s" `date +'{"date": "%d/%m", "hour": "%H", "minute": "%M", "day": "%A"}'`)
+(defpoll time :interval "1s" `date +'{"date": "%d/%m", "hour": "%H", "minute": "%M", "day": "%A", "seconds": "%S"}'`)
 
 (deflisten airplane "scripts/airplane")
+(deflisten battery_active "scripts/battery isLaptop")
 (deflisten battery "scripts/battery")
 (deflisten bluetooth "scripts/bluetooth")
 (deflisten brightness "scripts/brightness")
 (deflisten memory "scripts/memory")
-(deflisten music "scripts/music")
-(deflisten music_cover "scripts/music cover")
 (deflisten notifications "scripts/notifications")
 (deflisten notif_icons "scripts/notifications icons")
 (deflisten net "scripts/net")

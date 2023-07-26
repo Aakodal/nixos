@@ -1,3 +1,7 @@
+.day {
+  padding-right: 5px;
+}
+
 .membar {
   color: $peach;
 }
@@ -13,7 +17,11 @@
 .membar,
 .cpubar,
 .batbar {
-  background-color: $bg1;
+  background-color: $surface3;
+}
+
+.sys {
+  padding-left: 1.2rem;
 }
 
 .iconmem {

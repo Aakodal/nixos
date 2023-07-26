@@ -1,0 +1,20 @@
+.tray > menuitem {
+  padding-left: 5px;
+
+  window > menu {
+    background: $bg;
+    border: 1px solid $border;
+    border-radius: 8px;
+    padding: 5px;
+
+    menuitem:hover {
+      background: $rosewater;
+  	  border-radius: 10px;
+    }
+
+	menuitem:disabled {
+      background: $shadow;
+	  color: $subtext1;
+	}
+  }
+}

@@ -49,9 +49,9 @@ get_toggle_icon() {
 
 get_toggle_text() {
   if [ "$(dunstctl is-paused)" == false ]; then
-    echo "Couper Notifications"
+    echo "Couper les notifications"
   else
-    echo "Réactiver Notifications"
+    echo "Réactiver les notifications"
   fi
 }
 
