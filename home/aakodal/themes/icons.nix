@@ -8,12 +8,14 @@
   };
 in {
   home.packages = [
-    #fluent-icons
-    pkgs.qogir-icon-theme
+    fluent-icons
+    #pkgs.qogir-icon-theme
   ];
 
   gtk.iconTheme = {
-    name = "Qogir";
-    package = pkgs.qogir-icon-theme;
+    #name = "Qogir";
+    #package = pkgs.qogir-icon-theme;
+    name = "Fluent light";
+    package = fluent-icons;
   };
 }

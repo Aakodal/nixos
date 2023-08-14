@@ -10,4 +10,9 @@
     gtk.enable = true;
     x11.enable = true;
   };
+
+  gtk.cursorTheme = {
+    name = "Breeze Light";
+    package = pkgs.libsForQt5.breeze-icons;
+  };
 }

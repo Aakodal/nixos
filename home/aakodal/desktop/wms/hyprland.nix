@@ -1,6 +1,5 @@
 {
   inputs,
-  lib,
   osConfig,
   pkgs,
   ...
@@ -12,6 +11,10 @@ in {
     systemdIntegration = true;
     xwayland.enable = true;
     package = inputs.hyprland.packages.${pkgs.system}.default;
+
+    plugins = [
+      inputs.hy3.packages.${pkgs.system}.hy3
+    ];
 
     settings = {
       animations = {
@@ -27,10 +30,12 @@ in {
       };
 
       decoration = {
-        blur = true;
-        blur_size = 3;
-        blur_passes = 1;
-        blur_new_optimizations = true;
+        blur = {
+          enabled = true;
+          size = 8;
+          passes = 1;
+          new_optimizations = true;
+        };
         "col.shadow" = "rgba(1a1a1aee)";
         drop_shadow = true;
         rounding = 10;
@@ -38,9 +43,14 @@ in {
         shadow_render_power = 3;
       };
 
-      dwindle = {
-        preserve_split = true;
-        pseudotile = true;
+      plugin.hy3 = {
+        tabs = {
+          height = 5;
+          padding = 8;
+          render_text = false;
+        };
+
+        autotile.enable = true;
       };
 
       exec-once = [
@@ -54,7 +64,7 @@ in {
         "col.inactive_border" = "rgba(595959aa)";
         gaps_in = 5;
         gaps_out = 5;
-        layout = "dwindle";
+        layout = "hy3";
       };
 
       gestures.workspace_swipe = false;
@@ -88,6 +98,8 @@ in {
         "float, class:^(Microsoft)"
         "fullscreen, class:^(Microsoft), title:^(Diaporama)"
         "opacity 0.75 0.75, class:nemo"
+        "float, class:flameshot"
+        "opacity 0.75 0.75, class:WebCord"
       ];
 
 
@@ -120,14 +132,14 @@ in {
         ", XF86MonBrightnessDown, exec, brightnessctl s 5%-"
 
         # Windows 
-        "$mod, left, movefocus, l"
-        "$mod, right, movefocus, r"
-        "$mod, up, movefocus, u"
-        "$mod, down, movefocus, d"
-        "$mod SHIFT, left, movewindow, l"
-        "$mod SHIFT, right, movewindow, r"
-        "$mod SHIFT, up, movewindow, u"
-        "$mod SHIFT, down, movewindow, d"
+        "$mod, left, hy3:movefocus, l"
+        "$mod, right, hy3:movefocus, r"
+        "$mod, up, hy3:movefocus, u"
+        "$mod, down, hy3:movefocus, d"
+        "$mod SHIFT, left, hy3:movewindow, l"
+        "$mod SHIFT, right, hy3:movewindow, r"
+        "$mod SHIFT, up, hy3:movewindow, u"
+        "$mod SHIFT, down, hy3:movewindow, d"
 
         # Workspaces 
         "$mod, mouse_down, workspace, e+1"
@@ -167,7 +179,7 @@ in {
       );
 
       bindm = [
-        "$mod, mouse:272, movewindow"
+        "$mod, mouse:272, hy3:movewindow"
         "$mod, mouse:273, resizewindow"
       ];
     };

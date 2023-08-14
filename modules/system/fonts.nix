@@ -22,7 +22,7 @@
       decompressFonts = true;
     };
 
-    fonts = with pkgs; [
+    packages = with pkgs; [
       calibri
       corefonts
       dejavu_fonts
